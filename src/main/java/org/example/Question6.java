@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Question6 {
 
+
     private static Queue<String> takeoffQueue = new LinkedList<>();
     private static Queue<String> landingQueue = new LinkedList<>();
 
