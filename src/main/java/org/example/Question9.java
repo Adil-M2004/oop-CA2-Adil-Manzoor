@@ -25,15 +25,19 @@ public class Question9 {
         char division = '/';
 
 
+        for (int i = 0; i < equation.length(); i++) {
 
-       for(int i = 0; i < equation.length(); i++ ) {
-
-            if (equation.charAt(i) != plus || equation.charAt(i) != minus || equation.charAt(i) != multiply || equation.charAt(i) != division ) {
-                int num = equation.charAt(i);
+            //check
+            if (equation.charAt(i) != plus && equation.charAt(i) != minus &&
+                    equation.charAt(i) != multiply && equation.charAt(i) != division)
+            {  // we have a number, so push to stack
+                int num = (equation.charAt(i)-'0');
+                //NUMBERS ARE PUSHED IN STACK
                 stack.push(num);
 
-            } else if (equation.charAt(i) == plus) {
-                stack.push(stack.pop() + stack.pop());//ADD
+            } else  // else, it is not a number, assume operator, ...
+                if (equation.charAt(i) == plus) {
+                stack.push(stack.pop() + stack.pop()); //SU
 
             } else if (equation.charAt(i) == minus) {
                 stack.push(stack.pop() - stack.pop()); //SUBTRACT
@@ -45,10 +49,12 @@ public class Question9 {
                 stack.push(stack.pop() / stack.pop()); // DIVISION
 
             }
+            }
+            System.out.println("_________________________________");
+            System.out.println("FINAL ANSWER " + stack.pop());
+
+
         }
-        System.out.println("_________________________________");
-        System.out.println("FINAL ANSWER "+stack.pop());
-
-
     }
-}
+
+
