@@ -24,26 +24,26 @@ public class Question9 {
         char multiply = '*';
         char division = '/';
 
-        int i = 0;
 
-        while (equation.length() != 2) {
+
+       for(int i = 0; i < equation.length(); i++ ) {
 
             if (equation.charAt(i) != plus || equation.charAt(i) != minus || equation.charAt(i) != multiply || equation.charAt(i) != division ) {
                 int num = equation.charAt(i);
                 stack.push(num);
-                i++;
+
             } else if (equation.charAt(i) == plus) {
                 stack.push(stack.pop() + stack.pop());//ADD
-                i++;
+
             } else if (equation.charAt(i) == minus) {
                 stack.push(stack.pop() - stack.pop()); //SUBTRACT
-                i++;
+
             } else if (equation.charAt(i) == multiply) {
                 stack.push(stack.pop() * stack.pop()); // MULTIPLY
-                i++;
+
             } else if (equation.charAt(i) == division) {
                 stack.push(stack.pop() / stack.pop()); // DIVISION
-                i++;
+
             }
         }
         System.out.println("_________________________________");
