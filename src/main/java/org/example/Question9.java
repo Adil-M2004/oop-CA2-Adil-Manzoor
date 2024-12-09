@@ -37,7 +37,7 @@ public class Question9 {
 
             } else  // else, it is not a number, assume operator, ...
                 if (equation.charAt(i) == plus) {
-                stack.push(stack.pop() + stack.pop()); //SU
+                stack.push(stack.pop() + stack.pop()); //ADD
 
             } else if (equation.charAt(i) == minus) {
                 stack.push(stack.pop() - stack.pop()); //SUBTRACT
