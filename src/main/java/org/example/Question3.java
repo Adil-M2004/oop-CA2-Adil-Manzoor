@@ -3,9 +3,13 @@ package org.example;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Name:
+ * Class Group:
+ */
+
 public class Question3 {
 
-    // This function checks if the HTML tags in the file are properly nested.
     public static boolean validate(String filename) throws FileNotFoundException {
         // Stack to store opening tags
         Stack<String> stack = new Stack<>();
@@ -23,7 +27,6 @@ public class Question3 {
             else if (tag.startsWith("</")) {
                 // If stack is empty or tags don't match, it's invalid
                 if (stack.isEmpty() || !stack.peek().equals(tag.replace("</", "<"))) {
-                    scanner.close();
                     return false;
                 }
                 stack.pop();  // Pop the matching opening tag from the stack
@@ -33,7 +36,7 @@ public class Question3 {
                 continue;  // No action required for <br> tags
             }
         }
-        scanner.close();
+//        scanner.close();
         // If the stack is empty, all tags were matched properly
         return stack.isEmpty();
     }
@@ -41,8 +44,8 @@ public class Question3 {
     public static void main(String[] args) throws FileNotFoundException {
         // Files to test
         String[] files = {"tags_valid.txt", "tags_in" +
-                "valid.txt"};
-        for (String fName : files) {
+                "valid.txt"};//Names of the two files
+        for (String fName : files) {//CHECKS EACH OF THE FILES
             System.out.print(fName + ": ");
             if (validate(fName)) {
                 System.out.println("This file is valid");

@@ -1,51 +1,118 @@
 package org.example;
 
-import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
- * Name:
- * Class Group:
+ *  Name:
+ *  Class Group:
  */
 
 public class Question4  // Flood Fill (Stack, 2D Array)
 {
-    static final int ROWS = 5;
-    static final int COLUMNS = 5;
-
     public static void main(String[] args) {
-        System.out.println("Question 4. Floodfill algorithm.");
+        start();
+    }
+    public static void start()
+    {
+        int[][] arr = floodFillStart();
 
-        // Starter matrix (2D Array) with 0 representing an empty cell,
-        // and -1 representing a wall. Flood fill can not cross through
-        // a wall ( and not pass through diagionally).
-        //
-        int[][] matrix = new int[ROWS][COLUMNS]; // 2D Array of int
-        // define values for each row, -1 to prevent change
-        matrix[0] = new int[]{ 0, 0, -1, -1, 0};
-        matrix[1] = new int[]{ 0, 0, -1, -1, 0};
-        matrix[2] = new int[]{-1, 0,  0,  0, 0};
-        matrix[3] = new int[]{-1, 0, -1, -1, 0};
-        matrix[4] = new int[]{ 0,-1, -1,  0, 0};
+        arr[0][3] = -1;
+        arr[1][3] = -1;
+        arr[2][5] = -1;
+        arr[4][7] = -1;
+        arr[4][8] = -1;
+        arr[5][3] = -1;
+        arr[2][9] = -1;
+        arr[7][3] = -1;
+        arr[6][0] = -1;
+        arr[4][4] = -1;
+        arr[9][1] = -1;
 
-        display(matrix);
+        System.out.println("Matrix before flood fill: ");
+        display(arr);
 
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the starting Row (0-9): ");
+        int StartRow = sc.nextInt();
+        System.out.println("Enter the starting Column (0-9): ");
+        int StartColumn = sc.nextInt();
+
+        if(StartRow < 0 || StartRow >= arr.length || StartColumn < 0 || StartColumn >= arr[0].length || arr[StartRow][StartColumn] == -1){
+            System.out.println("Invalid Starting Position");
+            return;
+        }
+
+        fill(StartRow, StartColumn, arr);
+
+        System.out.println("Matrix after flood fill: ");
+        display(arr);
     }
 
     /*
-        Helper function to display the 2D Array
+        Starter function to create the 2D array and populate it with zeros
      */
-    public static void display(int[][] arr) {
-        for (int x = 0; x < ROWS; x++) {
-            for (int y = 0; y < COLUMNS; y++) {
+    public static int[][]  floodFillStart() {
+        Scanner kb = new Scanner(System.in);
+        int[][] arr = new int[10][10];
+        for (int x = 0; x < 10; x++)
+        {
+            for (int y = 0; y < 10; y++)
+            {
+                arr[x][y] = 0;
+            }
+        }
+        return arr;
+    }
+    /*
+        Helper function to display the image
+     */
+    public static void display(int[][] arr)
+    {
+        for (int x = 0; x < 10; x++)
+        {
+            for (int y = 0; y < 10; y++)
+            {
                 System.out.printf("%4d", arr[x][y]);
             }
             System.out.println();
         }
     }
+    private static void fill(int r, int c, int[][] arr)
+    {
+        Stack<Cell> stack = new Stack<>();
+        stack.push(new Cell(r,c));
 
-    private static void floodFill(int r, int c, int[][] arr) {
+        int fillValue = 1;
 
+        while(!stack.isEmpty()){
+            Cell cell = stack.pop();
+            int row = cell.row;
+            int col = cell.col;
+
+            if(row < 0 || row >= arr.length || col < 0 || col >= arr[row].length){
+                continue;
+            }
+
+            if(arr[row][col] == 0) {
+                arr[row][col] = fillValue++;
+                System.out.println("Filling row " + row + " col " + col);
+
+
+                stack.push(new Cell(row - 1, col));//North
+                stack.push(new Cell(row + 1, col));//South
+                stack.push(new Cell(row, col + 1));//East
+                stack.push(new Cell(row, col - 1));//West
+            }
+        }
+    }
+    static class Cell{
+        int row, col;
+
+        Cell(int row, int col){
+            this.row = row;
+            this.col = col;
+        }
     }
 
 }

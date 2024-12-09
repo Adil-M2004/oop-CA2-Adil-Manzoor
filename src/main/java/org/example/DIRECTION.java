@@ -8,5 +8,5 @@ package org.example;
 /*
 Direction enum used to indicate direction.
  */
-enum DIRECTION {NORTH, SOUTH,EAST,WEST};
+public enum DIRECTION {NORTH, SOUTH,EAST,WEST};
 

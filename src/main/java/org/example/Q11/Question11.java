@@ -1,4 +1,6 @@
-package org.example;
+package org.example.Q11;
+
+import org.example.Main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,7 +41,7 @@ public class Question11 {
         //  Create a map to represent the graph:
         //    - Keys: Cities(String)
         //    - Values: Maps of neighboring cities and their distances(TreeSet<DistanceTo>)
-        Map<String, TreeSet<DistanceTo>> NetofCity = new HashMap<>();
+        Map<String, TreeSet<Main.DistanceTo>> NetofCity = new HashMap<>();
 
         // Build the graph by iterating through the input lines
         for (String line : lines) {
@@ -53,23 +55,23 @@ public class Question11 {
             // Add connections to the graph (undirected graph)
             NetofCity.putIfAbsent(city1, new TreeSet<>());//This line checks if the city1 already exists as a key in the NetofCity map.
             // If city1 does not exist, it adds a new entry to the map with city1 as the key and a new TreeSet<DistanceTo> as the value.
-            NetofCity.get(city1).add(new DistanceTo(city2, distance));
+            NetofCity.get(city1).add(new Main.DistanceTo(city2, distance));
 
             NetofCity.putIfAbsent(city2, new TreeSet<>());
-            NetofCity.get(city2).add(new DistanceTo(city1, distance));
+            NetofCity.get(city2).add(new Main.DistanceTo(city1, distance));
 
 //
         }
 
         //  Initialize Dijkstra's algorithm
-        PriorityQueue<DistanceTo> queue = new PriorityQueue<>();
-        queue.add(new DistanceTo(from, 0)); // Add starting city to the queue with distance 0
+        PriorityQueue<Main.DistanceTo> queue = new PriorityQueue<>();
+        queue.add(new Main.DistanceTo(from, 0)); // Add starting city to the queue with distance 0
         Map<String, Integer> shortestDistance = new HashMap<>();
 
         //  Dijkstra's algorithm: Find the shortest paths to all cities
         while (!queue.isEmpty()) {
             // Extract the city with the shortest distance from the queue
-            DistanceTo current = queue.poll();//.poll() = This method returns the element at the front of the container or the head of the Queue.
+            Main.DistanceTo current = queue.poll();//.poll() = This method returns the element at the front of the container or the head of the Queue.
             // It returns null when the Queue is empty
             String target = current.getTarget();
             int distance = current.getDistance();
@@ -81,11 +83,11 @@ public class Question11 {
 
                 //  Explore neighbors of the current city
                 if (NetofCity.containsKey(target)) {
-                    for (DistanceTo neighbor : NetofCity.get(target)) {
+                    for (Main.DistanceTo neighbor : NetofCity.get(target)) {
                         // If the shortest distance to the neighbor is not yet known
                         if (!shortestDistance.containsKey(neighbor.getTarget())) {
                             // Calculate tentative distance to the neighbor
-                            queue.add(new DistanceTo(neighbor.getTarget(), distance + neighbor.getDistance()));
+                            queue.add(new Main.DistanceTo(neighbor.getTarget(), distance + neighbor.getDistance()));
                         }
                     }
                 }
